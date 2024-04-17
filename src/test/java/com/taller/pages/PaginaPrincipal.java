@@ -31,9 +31,4 @@ public class PaginaPrincipal {
         WebElement botonGenerarCita = driver.findElement(By.xpath("//*[@id=\"__layout\"]/div/div[1]/div/div[2]/div[2]/section[7]/div[1]/a"));
         botonGenerarCita.click();
     }
-
-    public void botonCitarManualmente() {
-        WebElement botonCitarManualmente = driver.findElement(By.xpath("//*[@id=\"top\"]/div[2]/div[1]/div[1]/div[2]/div[2]/button"));
-        botonCitarManualmente.click();
-    }    
 }

@@ -1,28 +1,21 @@
 package com.taller;
 
-import static org.junit.Assert.assertEquals;
-
-
 import java.time.Duration;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import com.taller.pages.Citas;
-import com.taller.pages.FuenteLibro;
+import static org.junit.Assert.assertEquals;
 import com.taller.pages.GeneradorCitas;
 import com.taller.pages.Inicio;
-import com.taller.pages.PaginaFuentes;
 import com.taller.pages.PaginaPrincipal;
 
-public class CitaManualTest 
-{
-    private WebDriver driver;
+public class CitaBusquedaTest {
 
+    private WebDriver driver;
+    
     @Before
     public void abrirNavegador(){
         driver = new ChromeDriver();
@@ -40,9 +33,9 @@ public class CitaManualTest
     public void cerrarNavegador(){
         driver.quit();
     }
-    
+
     @Test
-    public void testGenerarCitaManualmente()
+    public void testGenerarCitaBusquedaInvalida()
     {
         Inicio inicio = new Inicio(driver);
         inicio.botonInicioSesion();
@@ -56,18 +49,11 @@ public class CitaManualTest
         paginaPrincipal.botonGenerarCita();
 
         GeneradorCitas generadorCitas = new GeneradorCitas(driver);
-        generadorCitas.botonCitarManualmente();
-
-        PaginaFuentes paginaFuentes = new PaginaFuentes(driver);
-        paginaFuentes.escogerFuenteLibro();
-
-        FuenteLibro fuenteLibro = new FuenteLibro(driver);
-        fuenteLibro.completarFormularioLibro("Pruebas de Software y JUnit", "Daniel", "Bolaños", "2007");
-        fuenteLibro.botonCitarFuente();
-
-        Citas citas = new Citas(driver);
-
-        String citaGenerada = citas.obtenerCitaGenerada();
-        assertEquals("Bolaños, D. (2007). Pruebas de Software y JUnit.", citaGenerada);
+        generadorCitas.ingresarBusqueda("https://www.scribbr.com/citation/generator/folders/5qPdxdAesuaLEOKg0nnZkw/lists/1hECFRgQudXsAr3GGhfLF/");
+        generadorCitas.botonBuscar();
+        String resultado = generadorCitas.obtenerResultadoBusqueda();
+        assertEquals("No results found", resultado);
     }
+
+
 }
